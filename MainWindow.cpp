@@ -57,11 +57,11 @@ void MainWindow::onStart(){
 
     GLNK_AudioDataFormat audioFmt;
     audioFmt.samplesRate = 44100;
-    audioFmt.bitrate = 16;
+    audioFmt.bitrate = 64000;
     audioFmt.waveFormat = 0;
     audioFmt.channelNumber = 2;
     audioFmt.blockAlign = 0;
-    audioFmt.bitsPerSample = 0;
+    audioFmt.bitsPerSample = 16; //sample size
     audioFmt.frameInterval = 0;
     audioFmt.reserve = 0;
 

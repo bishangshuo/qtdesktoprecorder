@@ -29,7 +29,6 @@ private:
     AVFrame *convertToYUV420P(const QPixmap &pixmap);
 private:
     AVFormatContext *m_pFormatCtx;
-    AVStream *video_st;
     AVCodecContext* m_pCodecCtx;
     AVCodec* m_pCodec;
     uint8_t* m_pPicture_buf;

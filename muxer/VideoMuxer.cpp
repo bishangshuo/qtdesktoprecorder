@@ -2,6 +2,7 @@
 #include "capture/CaptureScreen.h"
 #include "capture/RecordAudio.h"
 #include "encode/EncodeVideo.h"
+#include "encode/EncodeAudio.h"
 #include "common/Loger.h"
 
 VideoMuxer::VideoMuxer(QObject *parent)
@@ -27,6 +28,9 @@ void VideoMuxer::Init(const GLNK_VideoDataFormat &videoFmt, const GLNK_AudioData
     m_pRecordAudio = new RecordAudio();
     connect(m_pRecordAudio, SIGNAL(sigRecordAudio(const QByteArray &, qint64)),
             this, SLOT(slotRecordAudio(const QByteArray &, qint64)));
+
+    m_pEncodeAudio = new EncodeAudio();
+    m_pEncodeAudio->Init(audioFmt);
 
     m_pRecordAudio->Init(audioFmt);
 }
@@ -56,5 +60,14 @@ void VideoMuxer::slotCaptureScreen(const QPixmap &pixmap, qint64 timestamp){
 
 void VideoMuxer::slotRecordAudio(const QByteArray &audioData, qint64 timestamp){
     LOGER << "slotRecordAudio" << EOL;
+    AVPacket pkt;
+    memset(&pkt, 0, sizeof(AVPacket));
+    av_init_packet(&pkt);
+    bool ret = m_pEncodeAudio->Encode((uint8_t*)audioData.data(), timestamp, &pkt);
+    if(ret){
+        LOGER << "aac encoded success" << EOL;
+    }else{
+        LOGER << "aac encoded failed" << EOL;
+    }
 }
 

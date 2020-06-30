@@ -15,7 +15,7 @@ RecordAudio::RecordAudio(QObject *parent)
 void RecordAudio::Init(const GLNK_AudioDataFormat &fmt){
     m_nAudioFormat.setSampleRate(fmt.samplesRate);
     m_nAudioFormat.setChannelCount(fmt.channelNumber);
-    m_nAudioFormat.setSampleSize(fmt.bitrate);
+    m_nAudioFormat.setSampleSize(fmt.bitsPerSample);
     m_nAudioFormat.setSampleType(QAudioFormat::SignedInt);
     m_nAudioFormat.setByteOrder(QAudioFormat::LittleEndian);
     m_nAudioFormat.setCodec("AUDIO_S16");

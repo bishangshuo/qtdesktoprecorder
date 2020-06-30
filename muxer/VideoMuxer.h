@@ -7,6 +7,7 @@
 class CaptureScreen;
 class RecordAudio;
 class EncodeVideo;
+class EncodeAudio;
 
 class VideoMuxer : public QObject
 {
@@ -25,6 +26,7 @@ private:
     RecordAudio *m_pRecordAudio;
 
     EncodeVideo *m_pEncodeVideo;
+    EncodeAudio *m_pEncodeAudio;
 };
 
 #endif // VIDEOMUXER_H
