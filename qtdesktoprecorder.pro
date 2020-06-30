@@ -1,8 +1,11 @@
 QT       += core gui
 
+win32: QT += winextras
+unix:!macx: LIBS += -lX11 -lXext -lXfixes
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
-CONFIG += c++11
+CONFIG += c++11 console
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -24,6 +27,23 @@ HEADERS += \
 
 FORMS += \
     MainWindow.ui
+
+LIBS += $$PWD/ffmpeg/lib/avcodec.lib \
+        $$PWD/ffmpeg/lib/avdevice.lib \
+        $$PWD/ffmpeg/lib/avfilter.lib \
+        $$PWD/ffmpeg/lib/avformat.lib \
+        $$PWD/ffmpeg/lib/avutil.lib \
+        $$PWD/ffmpeg/lib/postproc.lib \
+        $$PWD/ffmpeg/lib/swresample.lib \
+        $$PWD/ffmpeg/lib/swscale.lib
+
+INCLUDEPATH += $$PWD/ffmpeg/include
+DEPENDPATH += $$PWD/ffmpeg/include
+
+include($$PWD/capture/capture.pri)
+include($$PWD/encode/encode.pri)
+include($$PWD/muxer/muxer.pri)
+include($$PWD/common/common.pri)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
